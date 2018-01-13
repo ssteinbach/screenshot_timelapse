@@ -86,6 +86,10 @@ def main():
     except KeyboardInterrupt:
         pass
 
+    # in case it was ctrl-cd before the last file was written
+    if not os.path.exists(files[-1]):
+        del files[-1]
+
     json_fname = '{0}.json'.format(args.prefix)
 
     with open(json_fname, 'wa') as fo:
