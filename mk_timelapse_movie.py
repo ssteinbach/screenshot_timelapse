@@ -16,10 +16,8 @@ def parse_args():
         help="Print out command instead of running it."
     )
     parser.add_argument(
-        "-j",
-        "--job-file",
+        "job_file",
         type=str,
-        required=True,
         help="Path to JSON job file."
     )
     parser.add_argument(
