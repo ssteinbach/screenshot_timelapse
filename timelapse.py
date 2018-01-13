@@ -67,7 +67,7 @@ def main():
                 raise RuntimeError("File already exists: {0}".format(fname))
 
             # screen grab
-            cmd = "/usr/sbin/screencapture {0}".format(fname)
+            cmd = "/usr/sbin/screencapture -x {0}".format(fname)
 
             returncode = subprocess.call(cmd, shell=True)
             if returncode:
