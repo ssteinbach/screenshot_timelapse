@@ -8,13 +8,16 @@ SCREENGRAB_BIN_PATH = "/usr/sbin/screencapture"
 
 def parse_args():
     """ parse arguments out of sys.argv """
-    parser = argparse.ArgumentParser(description=__doc__)
+    parser = argparse.ArgumentParser(
+        description=__doc__,
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter
+    )
     parser.add_argument(
         '-d',
         '--dirname',
         required = True,
         type=str,
-        help='Directory to save files in.'
+        help='Directory to save files in.  Will create dir if it doesnt exist.'
     )
     parser.add_argument(
         '-p',
@@ -26,7 +29,7 @@ def parse_args():
     parser.add_argument(
         '-s',
         '--sleep',
-        default=5.0,
+        default=0.5,
         # type=int,
         help="Amount in seconds to wait in between screen grabs.",
     )
@@ -99,6 +102,7 @@ def main():
                     'prefix' : args.prefix,
                     'dir' : args.dirname,
                     'files' : files,
+                    'sleep': args.sleep,
                 }
             )
         )

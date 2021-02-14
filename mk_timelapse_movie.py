@@ -41,11 +41,19 @@ def parse_args():
         action='store_true',
         help="Preview timelapse in RV rather than making movie."
     )
+    parser.add_argument(
+        "-S",
+        "--scale",
+        type=int,
+        default=8,
+        help="Divisor of the image size to use"
+    )
     return parser.parse_args()
 
+# @TODO: make the divider an argument
 FFMPEG = (
-    'ffmpeg -r 15 -start_number {0} -i {1}.%03d.png -c:v libx264 -vframes {3} '
-    '-vf "scale=iw/4:ih/4,format=yuv420p" {2}.mp4'
+    'ffmpeg -r 15 -start_number {0} -i {1}.%03d.png -c:v libx265 -vframes {3} '
+    '-vf "scale=iw/{4}:ih/{4},format=yuv420p" {2}.mp4'
 )
 
 RV = 'rv {1}.%03d.png {0}-{3}'
@@ -82,6 +90,7 @@ def main():
             path_with_prefix,
             job_desc['prefix'],
             int(final_fnum)-int(args.start),
+            args.scale,
         )
 
     if args.dryrun:
@@ -96,6 +105,5 @@ def main():
                 )
             )
 
-    
 if __name__ == '__main__':
     main()
