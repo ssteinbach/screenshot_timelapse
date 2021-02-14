@@ -11,6 +11,8 @@ screenshot utility.  Runs in two steps:
 # Dependencies
 
 - Assumes that `ffmpeg` is installed w/ libx265
+- `mk_timelapse_movie.py` additionally has a `RV` preview mode that requires RV
+  installed.
 
 # Other notes
 
