@@ -5,6 +5,7 @@ import argparse
 import os
 import subprocess
 
+
 def parse_args():
     """ parse arguments out of sys.argv """
     parser = argparse.ArgumentParser(description=__doc__)
@@ -50,6 +51,7 @@ def parse_args():
     )
     return parser.parse_args()
 
+
 # @TODO: make the divider an argument
 FFMPEG = (
     'ffmpeg -r 15 -start_number {0} -i {1}.%03d.png -c:v libx265 -vframes {3} '
@@ -57,6 +59,7 @@ FFMPEG = (
 )
 
 RV = 'rv {1}.%03d.png {0}-{3}'
+
 
 def main():
     """main function for module"""
@@ -67,13 +70,15 @@ def main():
 
     if args.end < 0:
         # print(job_desc)
-        final_fnum = int(os.path.basename(job_desc['files'][-1]).split('.')[-2])
+        final_fnum = int(
+            os.path.basename(job_desc['files'][-1]).split('.')[-2]
+        )
         final_fnum = final_fnum + 1 + args.end
     else:
         final_fnum = args.end
 
     final_fnum = final_fnum + 1 + args.end
-    print final_fnum
+    print("Final Frame Number: {}".format(final_fnum))
 
     path_with_prefix = os.path.join(job_desc['dir'], job_desc['prefix'])
 
@@ -104,6 +109,7 @@ def main():
                     returncode
                 )
             )
+
 
 if __name__ == '__main__':
     main()
