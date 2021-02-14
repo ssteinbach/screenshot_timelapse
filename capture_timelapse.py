@@ -2,9 +2,15 @@
 
 """ Simple timelapse script using mac os built in screengrab system """
 
-import argparse, os, itertools, time, subprocess, json
+import argparse
+import os
+import itertools
+import time
+import subprocess
+import json
 
 SCREENGRAB_BIN_PATH = "/usr/sbin/screencapture"
+
 
 def parse_args():
     """ parse arguments out of sys.argv """
@@ -15,14 +21,14 @@ def parse_args():
     parser.add_argument(
         '-d',
         '--dirname',
-        required = True,
+        required=True,
         type=str,
         help='Directory to save files in.  Will create dir if it doesnt exist.'
     )
     parser.add_argument(
         '-p',
         '--prefix',
-        default = '',
+        default='',
         type=str,
         help='Prefix string for the file names.'
     )
@@ -41,6 +47,7 @@ def parse_args():
         help="Overwrite files if they already exist.",
     )
     return parser.parse_args()
+
 
 def main():
     """Infinite loop of screenshots."""
@@ -70,7 +77,7 @@ def main():
                 raise RuntimeError("File already exists: {0}".format(fname))
 
             # screen grab
-            cmd = "/usr/sbin/screencapture -x {0}".format(fname)
+            cmd = "{0} -x {1}".format(SCREENGRAB_BIN_PATH, fname)
 
             returncode = subprocess.call(cmd, shell=True)
             if returncode:
@@ -99,9 +106,9 @@ def main():
         fo.write(
             json.dumps(
                 {
-                    'prefix' : args.prefix,
-                    'dir' : args.dirname,
-                    'files' : files,
+                    'prefix': args.prefix,
+                    'dir': args.dirname,
+                    'files': files,
                     'sleep': args.sleep,
                 }
             )
